@@ -1,37 +1,23 @@
 # ml-compiler
 
-Exploring the ML Compiler pipeline, starting from PyTorch to Machine Code:
+Exploring the ML compiler pipeline — taking a neural network from Python all the way
+down to a native executable, and looking at every layer in between.
+
+The same small MLP (`Linear(5->10) -> Linear(10->2) -> ReLU`) is taken to machine code
+two different ways:
+
+- **[PyTorch/](PyTorch/)** — hand-lowered through MLIR. Torch-MLIR emits
+  linalg-on-tensors, then `mlir-opt` / `mlir-translate` / `llc` carry it down through
+  affine -> LLVM dialect -> LLVM IR -> object, linked with a C++ driver. You drive
+  every lowering step yourself.
+
+- **[JAX/](JAX/)** — let XLA do the codegen. `model.py` dumps XLA's compiled object
+  files; the Makefile links XLA's fused kernel directly against a C++ driver that calls
+  it through XLA's runtime ABI.
 
 ```
-PyTorch -> MLIR -> LLVM-IR -> ObjectFile -> executable
+PyTorch  ->  MLIR (torch -> linalg -> affine -> llvm)  ->  LLVM IR  ->  object  ->  exe
+JAX      ->  StableHLO / HLO  ->  XLA  ->  object (fused kernel)               ->  exe
 ```
 
-A small 2-layer MLP is exported from PyTorch with Torch-MLIR, lowered to the LLVM
-dialect, translated to LLVM IR, compiled to an object, and linked with a C++ driver
-into a native executable (macOS ARM64).
-
-## Usage
-
-```
-python3 model.py        # export the model to MLIR (representations/*.mlir)
-make                    # lower kernel/model_affine.mlir -> LLVM IR -> object -> exe
-./model/myNeuralNet     # run it
-```
-
-`make generate` rebuilds `kernel/model_affine.mlir` from the linalg MLIR.
-
-## Layout
-
-```
-kernel/model_affine.mlir       C-callable @model kernel (build input)
-kernel/driver.cpp              main(): feeds an input, calls model(), prints
-representations/               exported MLIR (torch, linalg-on-tensors)
-scripts/inline_constants.py    inline dense_resource weights (for make generate)
-mlir_output/                   build intermediates
-model/myNeuralNet              the executable
-```
-
-## Requirements
-
-`mlir-opt`, `mlir-translate`, `llc` (set the `MLIR` path in the Makefile), `clang++`,
-and Python with `torch` + `torch-mlir`.
+Each directory has its own README with build and run steps.

@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:x.1
+    1:y.1
+    2:broadcast_multiply_fusion
+  BufferLiveRange:
+    x.1{}:0-3
+    y.1{}:0-3
+    broadcast_multiply_fusion{}:2-3
+  Live ranges at 2 (peak):
+    broadcast_multiply_fusion{}: 80 bytes (cumulative: 80 bytes)
+    x.1{}: 80 bytes (cumulative: 160 bytes)
+    y.1{}: 4 bytes (cumulative: 164 bytes)
+  Stack trace breakdown for peak usage: 164 bytes
+    main.1 (100.0%, total: 164 bytes, current: 0 bytes, remaining: 164 bytes)
+      ├── jit(multiply)/mul (48.8%, total: 80 bytes, current: 80 bytes, remaining: 84 bytes)
+      ├── x (48.8%, total: 80 bytes, current: 80 bytes, remaining: 4 bytes)
+      └── y (2.4%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

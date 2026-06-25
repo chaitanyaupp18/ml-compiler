@@ -1,0 +1,54 @@
+Memory Space: default (color=0)
+Total bytes: 1028 (1.0KiB)
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+        64B( 37%);        64B;            0;                5; 5×(s32[], u32[1], u32[1], u32[], u32[], /*index=5*/u32[], u32[4], u32[4])
+        80B( 47%);        16B;          128;                1; u32[4]
+        96B( 56%);        16B;           64;                2; pred[], u32[4]
+       112B( 65%);        16B;          192;                5; 5×u32[4]
+       128B( 74%);        16B;          256;                5; 5×u32[4]
+       132B( 77%);         4B;          512;                1; s32[]
+       136B( 79%);         4B;          576;                1; u32[]
+       140B( 81%);         4B;          384;                1; u32[1]
+       144B( 84%);         4B;          448;                1; u32[1]
+       148B( 86%);         4B;          320;                1; u32[]
+       152B( 88%);         4B;          640;                1; u32[]
+       156B( 91%);         4B;          704;                5; 5×u32[1]
+       160B( 93%);         4B;          768;                5; 5×u32[1]
+       164B( 95%);         4B;          832;                5; 5×u32[]
+       168B( 98%);         4B;          896;                5; 5×u32[]
+       172B(100%);         4B;          960;                5; 5×u32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+        16B(100%);        16B;            0;                1; u32[4]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+        16B(100%);        16B;            0;                1; u32[4]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         8B(100%);         8B;            0;                6; u32[2], 5×s32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         8B(100%);         8B;            0;                1; u32[2]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; s32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; s32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; u32[]
+
+  cumulative_size;       size;       offset; used_by_n_values; shapes_list
+  ------------------------------------------------------------
+         4B(100%);         4B;            0;                1; s32[]
+
+

@@ -1,0 +1,14 @@
+HloLiveRange (max 2):
+  InstructionSequence:
+    0:x.1
+    1:broadcast_maximum_fusion
+  BufferLiveRange:
+    x.1{}:0-2
+    broadcast_maximum_fusion{}:1-2
+  Live ranges at 1 (peak):
+    broadcast_maximum_fusion{}: 24 bytes (cumulative: 24 bytes)
+    x.1{}: 24 bytes (cumulative: 48 bytes)
+  Stack trace breakdown for peak usage: 48 bytes
+    main.1 (100.0%, total: 48 bytes, current: 0 bytes, remaining: 48 bytes)
+      ├── jit(relu)/max (50.0%, total: 24 bytes, current: 24 bytes, remaining: 24 bytes)
+      └── x (50.0%, total: 24 bytes, current: 24 bytes, remaining: 0 bytes)

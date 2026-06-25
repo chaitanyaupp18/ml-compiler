@@ -1,0 +1,59 @@
+HloModule jit__unnamed_function, entry_computation_layout={(f32[3,5]{1,0})->f32[3,2]{1,0}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/model.py"
+2 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/src/MyNeuralNet.py"
+3 "/Users/chaitanya/.venv-py11/lib/python3.11/site-packages/flax/nnx/nn/linear.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "MyNeuralNet.__call__"
+4 "Linear.__call__"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=70 end_line=70 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=34 end_line=34 column=19 end_column=48}
+3 {file_name_id=2 function_name_id=3 line=13 end_line=13 column=12 end_column=26}
+4 {file_name_id=3 function_name_id=4 line=422 end_line=428 column=8 end_column=5}
+5 {file_name_id=2 function_name_id=3 line=14 end_line=14 column=24 end_column=38}
+6 {file_name_id=2 function_name_id=3 line=14 end_line=14 column=15 end_column=39}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=3}
+6 {file_location_id=4 parent_frame_id=6}
+7 {file_location_id=6 parent_frame_id=3}
+
+
+%fused_computation (param_0: f32[3,10], param_1: f32[10,2]) -> f32[3,2] {
+  %param_0 = f32[3,10]{1,0} parameter(0)
+  %param_1 = f32[10,2]{1,0} parameter(1)
+  ROOT %dot_general.0 = f32[3,2]{1,0} dot(%param_0, %param_1), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=6}
+}
+
+%fused_computation.1 (param_0.1: f32[3,5], param_1.1: f32[5,10]) -> f32[3,10] {
+  %param_0.1 = f32[3,5]{1,0} parameter(0)
+  %param_1.1 = f32[5,10]{1,0} parameter(1)
+  ROOT %dot_general.1 = f32[3,10]{1,0} dot(%param_0.1, %param_1.1), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=4}
+}
+
+%fused_computation.2 (param_0.2: f32[3,2]) -> f32[3,2] {
+  %param_0.2 = f32[3,2]{1,0} parameter(0)
+  %constant.1 = f32[] constant(0), metadata={op_name="jit(<unnamed function>)/jit(relu)" stack_frame_id=7}
+  %broadcast.2 = f32[3,2]{1,0} broadcast(%constant.1), dimensions={}, metadata={op_name="jit(<unnamed function>)/jit(relu)" stack_frame_id=7}
+  ROOT %max.2 = f32[3,2]{1,0} maximum(%param_0.2, %broadcast.2), metadata={op_name="jit(<unnamed function>)/jit(relu)/max" stack_frame_id=7}
+}
+
+ENTRY %main.2 (x.1: f32[3,5]) -> f32[3,2] {
+  %x.1 = f32[3,5]{1,0} parameter(0), metadata={op_name="x"}
+  %constant.4 = f32[5,10]{1,0} constant({...})
+  %ynn_fusion.1 = f32[3,10]{1,0} fusion(%x.1, %constant.4), kind=kCustom, calls=%fused_computation.1, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=4}, backend_config={"outer_dimension_partitions":[],"fusion_config":{"kind":"__ynn_fusion"}}
+  %constant.5 = f32[10,2]{1,0} constant({...})
+  %ynn_fusion = f32[3,2]{1,0} fusion(%ynn_fusion.1, %constant.5), kind=kCustom, calls=%fused_computation, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=6}, backend_config={"outer_dimension_partitions":[],"fusion_config":{"kind":"__ynn_fusion"}}
+  ROOT %broadcast_maximum_fusion = f32[3,2]{1,0} fusion(%ynn_fusion), kind=kLoop, calls=%fused_computation.2, metadata={op_name="jit(<unnamed function>)/jit(relu)/max" stack_frame_id=7}
+}
+

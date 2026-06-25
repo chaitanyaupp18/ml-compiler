@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:args_0_.1
+    1:args_1_.1
+    2:ynn_fusion
+  BufferLiveRange:
+    args_0_.1{}:0-3
+    args_1_.1{}:0-3
+    ynn_fusion{}:2-3
+  Live ranges at 2 (peak):
+    args_0_.1{}: 120 bytes (cumulative: 120 bytes)
+    args_1_.1{}: 80 bytes (cumulative: 200 bytes)
+    ynn_fusion{}: 24 bytes (cumulative: 224 bytes)
+  Stack trace breakdown for peak usage: 224 bytes
+    main.1 (100.0%, total: 224 bytes, current: 0 bytes, remaining: 224 bytes)
+      ├── args[0] (53.6%, total: 120 bytes, current: 120 bytes, remaining: 104 bytes)
+      ├── args[1] (35.7%, total: 80 bytes, current: 80 bytes, remaining: 24 bytes)
+      └── jit(dot_general)/dot_general (10.7%, total: 24 bytes, current: 24 bytes, remaining: 0 bytes)

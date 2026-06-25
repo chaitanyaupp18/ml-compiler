@@ -1,0 +1,34 @@
+HloModule jit_relu, is_scheduled=true, entry_computation_layout={(f32[3,2]{1,0})->f32[3,2]{1,0}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/model.py"
+2 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/src/MyNeuralNet.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "MyNeuralNet.__call__"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=70 end_line=70 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=23 end_line=23 column=13 end_column=31}
+3 {file_name_id=2 function_name_id=3 line=14 end_line=14 column=15 end_column=39}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+
+
+%fused_computation (param_0: f32[3,2]) -> f32[3,2] {
+  %param_0 = f32[3,2]{1,0} parameter(0)
+  %constant.0 = f32[] constant(0)
+  %broadcast.0 = f32[3,2]{1,0} broadcast(%constant.0), dimensions={}
+  ROOT %max.0 = f32[3,2]{1,0} maximum(%param_0, %broadcast.0), metadata={op_name="jit(relu)/max" stack_frame_id=3}
+}
+
+ENTRY %main.1 (x.1: f32[3,2]) -> f32[3,2] {
+  %x.1 = f32[3,2]{1,0} parameter(0), metadata={op_name="x"}
+  ROOT %broadcast_maximum_fusion = f32[3,2]{1,0} fusion(%x.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(relu)/max" stack_frame_id=3}
+}
+

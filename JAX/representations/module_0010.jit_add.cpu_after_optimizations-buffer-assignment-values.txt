@@ -1,0 +1,22 @@
+
+Total bytes used: 12 (12B)
+
+Used values:
+<4 x.1 @0>
+ positions:
+  x.1
+ uses:
+  convert_add_fusion, operand 0
+ from instruction: %x.1 = u32[] parameter(0), metadata={op_name="x"}
+<5 y.1 @0>
+ positions:
+  y.1
+ uses:
+  convert_add_fusion, operand 1
+ from instruction: %y.1 = s32[] parameter(1), metadata={op_name="y"}
+<6 convert_add_fusion @0>
+ positions:
+  convert_add_fusion
+ uses:
+  (none)
+ from instruction: %convert_add_fusion = u32[] fusion(%x.1, %y.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(add)/add" stack_frame_id=11}

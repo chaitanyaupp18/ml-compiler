@@ -1,0 +1,22 @@
+
+Total bytes used: 12 (12B)
+
+Used values:
+<3 x1.1 @0>
+ positions:
+  x1.1
+ uses:
+  wrapped_divide, operand 0
+ from instruction: %x1.1 = f32[] parameter(0), metadata={op_name="x1"}
+<4 x2.1 @0>
+ positions:
+  x2.1
+ uses:
+  wrapped_divide, operand 1
+ from instruction: %x2.1 = f32[] parameter(1), metadata={op_name="x2"}
+<5 wrapped_divide @0>
+ positions:
+  wrapped_divide
+ uses:
+  (none)
+ from instruction: %wrapped_divide = f32[] fusion(%x1.1, %x2.1), kind=kLoop, calls=%wrapped_divide_computation, metadata={op_name="jit(true_divide)/div" stack_frame_id=10}

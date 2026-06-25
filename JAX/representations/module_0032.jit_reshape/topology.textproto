@@ -1,0 +1,7 @@
+platform_id: 17910157233389077760
+platform_name: "cpu"
+platform_version: "cpu"
+platform_specific_topology {
+  type_url: "type.googleapis.com/xla.CpuTopologyProto"
+  value: "\n\000*$\n\030arm64-apple-darwin25.5.0\022\010apple-m4"
+}

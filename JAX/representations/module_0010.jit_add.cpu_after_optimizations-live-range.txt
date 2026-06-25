@@ -1,0 +1,18 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:x.1
+    1:y.1
+    2:convert_add_fusion
+  BufferLiveRange:
+    x.1{}:0-3
+    y.1{}:0-3
+    convert_add_fusion{}:2-3
+  Live ranges at 2 (peak):
+    convert_add_fusion{}: 4 bytes (cumulative: 4 bytes)
+    x.1{}: 4 bytes (cumulative: 8 bytes)
+    y.1{}: 4 bytes (cumulative: 12 bytes)
+  Stack trace breakdown for peak usage: 12 bytes
+    main.1 (100.0%, total: 12 bytes, current: 0 bytes, remaining: 12 bytes)
+      ├── jit(add)/add (33.3%, total: 4 bytes, current: 4 bytes, remaining: 8 bytes)
+      ├── x (33.3%, total: 4 bytes, current: 4 bytes, remaining: 4 bytes)
+      └── y (33.3%, total: 4 bytes, current: 4 bytes, remaining: 0 bytes)

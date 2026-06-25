@@ -1,0 +1,442 @@
+
+Total bytes used: 1928 (1.9KiB)
+
+Used values:
+<291 copy.9 @0>
+ positions:
+  copy.9
+ uses:
+  broadcast_add_fusion, operand 4
+  wrapped_add, operand 0
+ from instruction: %copy.9 = s32[] copy(%get-tuple-element.107)
+<292 constant.42 @0>
+ positions:
+  constant.42
+ uses:
+  wrapped_add, operand 1
+ from instruction: %constant.42 = s32[] constant(1), metadata={op_name="jit(_truncated_normal)/jit(_uniform)" stack_frame_id=10}
+<293 wrapped_add @0>
+ positions:
+  wrapped_add
+  tuple.17 {0}
+ uses:
+  tuple.17, operand 0
+ from instruction: %wrapped_add = s32[] fusion(%copy.9, %constant.42), kind=kLoop, calls=%wrapped_add_computation, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while/body/add" stack_frame_id=10}
+<294 copy.12 @0>
+ positions:
+  copy.12
+ uses:
+  broadcast_add_fusion.1, operand 0
+  copy.22, operand 0
+ from instruction: %copy.12 = u32[] copy(%get-tuple-element.110)
+<295 copy.15 @0>
+ positions:
+  copy.15
+ uses:
+  broadcast_add_fusion, operand 1
+  copy.24, operand 0
+  broadcast_add_fusion.1, operand 1
+ from instruction: %copy.15 = u32[4]{0} copy(%get-tuple-element.113)
+<296 copy.11 @0>
+ positions:
+  copy.11
+ uses:
+  broadcast_add_fusion.1, operand 2
+  broadcast_add_fusion, operand 2
+ from instruction: %copy.11 = u32[5,10]{1,0} copy(%get-tuple-element.109)
+<297 copy.10 @0>
+ positions:
+  copy.10
+ uses:
+  broadcast_add_fusion, operand 3
+  broadcast_add_fusion.1, operand 3
+ from instruction: %copy.10 = u32[5,10]{1,0} copy(%get-tuple-element.108)
+<298 broadcast_add_fusion.1 @0>
+ positions:
+  broadcast_add_fusion.1
+  tuple.17 {1}
+ uses:
+  tuple.17, operand 1
+ from instruction: %broadcast_add_fusion.1 = u32[5,10]{1,0} fusion(%copy.12, %copy.15, %copy.11, %copy.10), kind=kLoop, calls=%fused_computation.1, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while/body/closed_call/add" stack_frame_id=10}
+<299 copy.13 @0>
+ positions:
+  copy.13
+ uses:
+  broadcast_add_fusion, operand 0
+  copy.20, operand 0
+ from instruction: %copy.13 = u32[] copy(%get-tuple-element.111)
+<300 broadcast_add_fusion @0>
+ positions:
+  broadcast_add_fusion
+  tuple.17 {2}
+ uses:
+  tuple.17, operand 2
+ from instruction: %broadcast_add_fusion = u32[5,10]{1,0} fusion(%copy.13, %copy.15, %copy.11, %copy.10, %copy.9), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while/body/closed_call/add" stack_frame_id=10}
+<301 copy.20 @0>
+ positions:
+  copy.20
+  tuple.17 {3}
+ uses:
+  tuple.17, operand 3
+ from instruction: %copy.20 = u32[] copy(%copy.13), control-predecessors={%copy.12}
+<302 copy.14 @0>
+ positions:
+  copy.14
+ uses:
+  copy.21, operand 0
+ from instruction: %copy.14 = u32[] copy(%get-tuple-element.112)
+<303 copy.21 @0>
+ positions:
+  copy.21
+  tuple.17 {4}
+ uses:
+  tuple.17, operand 4
+ from instruction: %copy.21 = u32[] copy(%copy.14), control-predecessors={%copy.13}
+<304 copy.22 @0>
+ positions:
+  copy.22
+  tuple.17 {5}
+ uses:
+  tuple.17, operand 5
+ from instruction: %copy.22 = u32[] copy(%copy.12), control-predecessors={%copy.14}
+<305 copy.16 @0>
+ positions:
+  copy.16
+ uses:
+  copy.23, operand 0
+ from instruction: %copy.16 = u32[4]{0} copy(%get-tuple-element.114)
+<306 copy.23 @0>
+ positions:
+  copy.23
+  tuple.17 {6}
+ uses:
+  tuple.17, operand 6
+ from instruction: %copy.23 = u32[4]{0} copy(%copy.16), control-predecessors={%copy.15}
+<307 copy.24 @0>
+ positions:
+  copy.24
+  tuple.17 {7}
+ uses:
+  tuple.17, operand 7
+ from instruction: %copy.24 = u32[4]{0} copy(%copy.15), control-predecessors={%copy.16}
+<308 tuple.17{} @0>
+ positions:
+  tuple.17 {}
+ uses:
+  (none)
+ from instruction: %tuple.17 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) tuple(%wrapped_add, %broadcast_add_fusion.1, %broadcast_add_fusion, %copy.20, %copy.21, /*index=5*/%copy.22, %copy.23, %copy.24)
+<312 constant.41 @0>
+ positions:
+  constant.41
+ uses:
+  wrapped_compare, operand 1
+ from instruction: %constant.41 = s32[] constant(5), metadata={op_name="jit(_truncated_normal)/jit(_uniform)" stack_frame_id=10}
+<313 wrapped_compare @0>
+ positions:
+  wrapped_compare
+ uses:
+  (none)
+ from instruction: %wrapped_compare = pred[] fusion(%get-tuple-element.80, %constant.41), kind=kLoop, calls=%wrapped_compare_computation, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while/cond/lt" stack_frame_id=10}
+<314 upper.1 @0>
+ positions:
+  upper.1
+ uses:
+  multiply_erf_fusion, operand 0
+  maximum_minimum_fusion, operand 5
+ from instruction: %upper.1 = s32[] parameter(2), metadata={op_name="upper"}
+<315 multiply_erf_fusion @0>
+ positions:
+  multiply_erf_fusion
+ uses:
+  maximum_minimum_fusion, operand 0
+ from instruction: %multiply_erf_fusion = f32[] fusion(%upper.1), kind=kLoop, calls=%fused_computation.3, metadata={op_name="jit(_truncated_normal)/erf" stack_frame_id=10}
+<316 lower.1 @0>
+ positions:
+  lower.1
+ uses:
+  multiply_erf_fusion.1, operand 0
+  maximum_minimum_fusion, operand 4
+ from instruction: %lower.1 = s32[] parameter(1), metadata={op_name="lower"}
+<317 multiply_erf_fusion.1 @0>
+ positions:
+  multiply_erf_fusion.1
+ uses:
+  maximum_minimum_fusion, operand 1
+ from instruction: %multiply_erf_fusion.1 = f32[] fusion(%lower.1), kind=kLoop, calls=%fused_computation.9, metadata={op_name="jit(_truncated_normal)/erf" stack_frame_id=10}
+<318 constant.62 @0>
+ positions:
+  constant.62
+ uses:
+  copy.25, operand 0
+ from instruction: %constant.62 = s32[] constant(0)
+<319 copy.25 @0>
+ positions:
+  copy.25
+  tuple.15 {0}
+ uses:
+  while.9, operand 0 {0}
+ from instruction: %copy.25 = s32[] copy(%constant.62)
+<320 key.1 @0>
+ positions:
+  key.1
+ uses:
+  slice_bitcast_fusion, operand 0
+  slice_bitcast_fusion.1, operand 0
+  xor_xor_fusion, operand 0
+  broadcast_add_fusion.2, operand 0
+  broadcast_add_fusion.3, operand 0
+ from instruction: %key.1 = u32[2]{0} parameter(0), metadata={op_name="key"}
+<321 broadcast_add_fusion.3 @0>
+ positions:
+  broadcast_add_fusion.3
+  tuple.15 {1}
+ uses:
+  while.9, operand 0 {1}
+ from instruction: %broadcast_add_fusion.3 = u32[5,10]{1,0} fusion(%key.1), kind=kLoop, calls=%fused_computation.7, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/add" stack_frame_id=10}
+<322 broadcast_add_fusion.2 @0>
+ positions:
+  broadcast_add_fusion.2
+  tuple.15 {2}
+ uses:
+  while.9, operand 0 {2}
+ from instruction: %broadcast_add_fusion.2 = u32[5,10]{1,0} fusion(%key.1), kind=kLoop, calls=%fused_computation.5, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/add" stack_frame_id=10}
+<323 slice_bitcast_fusion @0>
+ positions:
+  slice_bitcast_fusion
+  tuple.15 {3}
+ uses:
+  while.9, operand 0 {3}
+ from instruction: %slice_bitcast_fusion = u32[] fusion(%key.1), kind=kLoop, calls=%fused_computation.6, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/slice" stack_frame_id=10}
+<324 xor_xor_fusion @0>
+ positions:
+  xor_xor_fusion
+  tuple.15 {4}
+ uses:
+  while.9, operand 0 {4}
+ from instruction: %xor_xor_fusion = u32[] fusion(%key.1), kind=kLoop, calls=%fused_computation.4, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/xor" stack_frame_id=10}
+<325 slice_bitcast_fusion.1 @0>
+ positions:
+  slice_bitcast_fusion.1
+  tuple.15 {5}
+ uses:
+  while.9, operand 0 {5}
+ from instruction: %slice_bitcast_fusion.1 = u32[] fusion(%key.1), kind=kLoop, calls=%fused_computation.8, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/slice" stack_frame_id=10}
+<326 constant.10 @0>
+ positions:
+  constant.10
+ uses:
+  copy.26, operand 0
+ from instruction: %constant.10 = u32[4]{0} constant({13, 15, 26, 6}), metadata={op_name="jit(_truncated_normal)/jit(_uniform)" stack_frame_id=10}
+<327 copy.26 @0>
+ positions:
+  copy.26
+  tuple.15 {6}
+ uses:
+  while.9, operand 0 {6}
+ from instruction: %copy.26 = u32[4]{0} copy(%constant.10)
+<328 constant.11 @0>
+ positions:
+  constant.11
+ uses:
+  copy.27, operand 0
+ from instruction: %constant.11 = u32[4]{0} constant({17, 29, 16, 24}), metadata={op_name="jit(_truncated_normal)/jit(_uniform)" stack_frame_id=10}
+<329 copy.27 @0>
+ positions:
+  copy.27
+  tuple.15 {7}
+ uses:
+  while.9, operand 0 {7}
+ from instruction: %copy.27 = u32[4]{0} copy(%constant.11)
+<330 tuple.15{} @0>
+ positions:
+  tuple.15 {}
+ uses:
+  while.9, operand 0 {}
+ from instruction: %tuple.15 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) tuple(%copy.25, %broadcast_add_fusion.3, %broadcast_add_fusion.2, %slice_bitcast_fusion, %xor_xor_fusion, /*index=5*/%slice_bitcast_fusion.1, %copy.26, %copy.27)
+<331 maximum_minimum_fusion @0>
+ positions:
+  maximum_minimum_fusion
+ uses:
+  (none)
+ from instruction: %maximum_minimum_fusion = f32[5,10]{1,0} fusion(%multiply_erf_fusion, %multiply_erf_fusion.1, %get-tuple-element.0, %get-tuple-element.1, %lower.1, /*index=5*/%upper.1), kind=kLoop, calls=%fused_computation.2, metadata={op_name="jit(_truncated_normal)/jit(clip)/min" stack_frame_id=10}
+<332 arg_tuple.5{} (phi) @0>
+ positions:
+  arg_tuple.5 {}
+ uses:
+  get-tuple-element.80, operand 0 {}
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<333 arg_tuple.6{} (phi) @0>
+ positions:
+  arg_tuple.6 {}
+ uses:
+  get-tuple-element.114, operand 0 {}
+  get-tuple-element.113, operand 0 {}
+  get-tuple-element.112, operand 0 {}
+  get-tuple-element.111, operand 0 {}
+  get-tuple-element.110, operand 0 {}
+  get-tuple-element.109, operand 0 {}
+  get-tuple-element.108, operand 0 {}
+  get-tuple-element.107, operand 0 {}
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<334 arg_tuple.5{0} (phi) @0>
+ positions:
+  arg_tuple.5 {0}
+  get-tuple-element.80
+ uses:
+  wrapped_compare, operand 0
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<335 arg_tuple.5{1} (phi) @0>
+ positions:
+  arg_tuple.5 {1}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<336 arg_tuple.5{2} (phi) @0>
+ positions:
+  arg_tuple.5 {2}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<337 arg_tuple.5{3} (phi) @0>
+ positions:
+  arg_tuple.5 {3}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<338 arg_tuple.5{4} (phi) @0>
+ positions:
+  arg_tuple.5 {4}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<339 arg_tuple.5{5} (phi) @0>
+ positions:
+  arg_tuple.5 {5}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<340 arg_tuple.5{6} (phi) @0>
+ positions:
+  arg_tuple.5 {6}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<341 arg_tuple.5{7} (phi) @0>
+ positions:
+  arg_tuple.5 {7}
+ uses:
+  (none)
+ from instruction: %arg_tuple.5 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<342 arg_tuple.6{0} (phi) @0>
+ positions:
+  arg_tuple.6 {0}
+  get-tuple-element.107
+ uses:
+  copy.9, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<343 arg_tuple.6{1} (phi) @0>
+ positions:
+  arg_tuple.6 {1}
+  get-tuple-element.108
+ uses:
+  copy.10, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<344 arg_tuple.6{2} (phi) @0>
+ positions:
+  arg_tuple.6 {2}
+  get-tuple-element.109
+ uses:
+  copy.11, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<345 arg_tuple.6{3} (phi) @0>
+ positions:
+  arg_tuple.6 {3}
+  get-tuple-element.110
+ uses:
+  copy.12, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<346 arg_tuple.6{4} (phi) @0>
+ positions:
+  arg_tuple.6 {4}
+  get-tuple-element.111
+ uses:
+  copy.13, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<347 arg_tuple.6{5} (phi) @0>
+ positions:
+  arg_tuple.6 {5}
+  get-tuple-element.112
+ uses:
+  copy.14, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<348 arg_tuple.6{6} (phi) @0>
+ positions:
+  arg_tuple.6 {6}
+  get-tuple-element.113
+ uses:
+  copy.15, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<349 arg_tuple.6{7} (phi) @0>
+ positions:
+  arg_tuple.6 {7}
+  get-tuple-element.114
+ uses:
+  copy.16, operand 0
+ from instruction: %arg_tuple.6 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) parameter(0)
+<350 while.9{} (phi) @0>
+ positions:
+  while.9 {}
+ uses:
+  get-tuple-element.1, operand 0 {}
+  get-tuple-element.0, operand 0 {}
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<351 while.9{0} (phi) @0>
+ positions:
+  while.9 {0}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<352 while.9{1} (phi) @0>
+ positions:
+  while.9 {1}
+  get-tuple-element.0
+ uses:
+  maximum_minimum_fusion, operand 2
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<353 while.9{2} (phi) @0>
+ positions:
+  while.9 {2}
+  get-tuple-element.1
+ uses:
+  maximum_minimum_fusion, operand 3
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<354 while.9{3} (phi) @0>
+ positions:
+  while.9 {3}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<355 while.9{4} (phi) @0>
+ positions:
+  while.9 {4}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<356 while.9{5} (phi) @0>
+ positions:
+  while.9 {5}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<357 while.9{6} (phi) @0>
+ positions:
+  while.9 {6}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}
+<358 while.9{7} (phi) @0>
+ positions:
+  while.9 {7}
+ uses:
+  (none)
+ from instruction: %while.9 = (s32[], u32[5,10]{1,0}, u32[5,10]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0}) while(%tuple.15), condition=%region_1.3.clone.clone, body=%region_0.2.clone.clone.clone, metadata={op_name="jit(_truncated_normal)/jit(_uniform)/while" stack_frame_id=10}, backend_config={"known_trip_count":{"n":"5"},"known_init_step":{"init":"0","step":"1"},"known_induction_variable":{"tuple_index":"0"},"dynamic_variables":[]}

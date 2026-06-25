@@ -1,0 +1,15 @@
+HloLiveRange (max 3):
+  InstructionSequence:
+    0:args_0_.1
+    1:bitcast
+    2:copy
+  BufferLiveRange:
+    args_0_.1{}:0-3
+    copy{}:2-3
+  Live ranges at 2 (peak):
+    args_0_.1{}: 40 bytes (cumulative: 40 bytes)
+    copy{}: 40 bytes (cumulative: 80 bytes)
+  Stack trace breakdown for peak usage: 80 bytes
+    main.1 (100.0%, total: 80 bytes, current: 0 bytes, remaining: 80 bytes)
+      ├── args[0] (50.0%, total: 40 bytes, current: 40 bytes, remaining: 40 bytes)
+      └── copy (50.0%, total: 40 bytes, current: 40 bytes, remaining: 0 bytes)

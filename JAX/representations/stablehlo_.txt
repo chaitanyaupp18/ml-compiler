@@ -1,0 +1,24 @@
+module @jit__unnamed_function attributes {mhlo.num_partitions = 1 : i32, mhlo.num_replicas = 1 : i32} {
+  func.func public @main(%arg0: tensor<3x5xf32>) -> (tensor<3x2xf32> {jax.result_info = "result"}) {
+    %cst = stablehlo.constant dense<[[4.785980e-01, -0.43367511, -3.597620e-01, -0.553879559, -0.417384446, 0.28419441, 0.348327249, -0.488435954, 0.754708052, -0.832702636], [-0.605151474, 0.0648195818, -0.545755923, 0.11602629, 0.784478724, 0.244108543, 0.287158549, -0.228669494, 0.437978745, 0.174938411], [-0.305784106, -0.417039394, 0.364572942, 5.053330e-01, 0.43460989, -0.238019243, 0.425402582, 0.748716712, -0.968316853, 0.213746563], [0.809082984, -0.554663301, -0.284136444, 0.902587056, 0.385002077, -0.0957650169, -0.782733738, -0.394150406, -0.945891201, 0.713462173], [0.654291391, 0.169716328, 0.0303103272, 0.543089032, -0.103030942, -0.164550245, 0.331739515, -0.164339676, 0.237868086, 0.102614149]]> : tensor<5x10xf32>
+    %cst_0 = stablehlo.constant dense<0.000000e+00> : tensor<10xf32>
+    %cst_1 = stablehlo.constant dense<[[0.429939777, 0.447775066], [-0.14019461, -0.262281746], [0.130430147, 0.00648167403], [0.196136236, -0.256091118], [0.0789178386, -0.486817688], [-0.309266865, 0.559920073], [-0.324052036, -0.14758426], [0.276661754, 0.400477588], [-0.0369724184, -0.305455744], [0.453989953, 4.463560e-02]]> : tensor<10x2xf32>
+    %cst_2 = stablehlo.constant dense<0.000000e+00> : tensor<2xf32>
+    %0 = stablehlo.dot_general %arg0, %cst, contracting_dims = [1] x [0], precision = [DEFAULT, DEFAULT] : (tensor<3x5xf32>, tensor<5x10xf32>) -> tensor<3x10xf32>
+    %1 = stablehlo.reshape %cst_0 : (tensor<10xf32>) -> tensor<1x10xf32>
+    %2 = stablehlo.broadcast_in_dim %1, dims = [0, 1] : (tensor<1x10xf32>) -> tensor<3x10xf32>
+    %3 = stablehlo.add %0, %2 : tensor<3x10xf32>
+    %4 = stablehlo.dot_general %3, %cst_1, contracting_dims = [1] x [0], precision = [DEFAULT, DEFAULT] : (tensor<3x10xf32>, tensor<10x2xf32>) -> tensor<3x2xf32>
+    %5 = stablehlo.reshape %cst_2 : (tensor<2xf32>) -> tensor<1x2xf32>
+    %6 = stablehlo.broadcast_in_dim %5, dims = [0, 1] : (tensor<1x2xf32>) -> tensor<3x2xf32>
+    %7 = stablehlo.add %4, %6 : tensor<3x2xf32>
+    %8 = call @relu(%7) : (tensor<3x2xf32>) -> tensor<3x2xf32>
+    return %8 : tensor<3x2xf32>
+  }
+  func.func private @relu(%arg0: tensor<3x2xf32>) -> tensor<3x2xf32> {
+    %cst = stablehlo.constant dense<0.000000e+00> : tensor<f32>
+    %0 = stablehlo.broadcast_in_dim %cst, dims = [] : (tensor<f32>) -> tensor<3x2xf32>
+    %1 = stablehlo.maximum %arg0, %0 : tensor<3x2xf32>
+    return %1 : tensor<3x2xf32>
+  }
+}

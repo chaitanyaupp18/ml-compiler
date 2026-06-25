@@ -1,0 +1,21 @@
+{ [34;1mlambda [39;22ma[35m:f32[5,10][39m b[35m:f32[10][39m c[35m:f32[10,2][39m d[35m:f32[2][39m; e[35m:f32[3,5][39m. [34;1mlet
+    [39;22mf[35m:f32[3,10][39m = dot_general[dimension_numbers=(([1], [0]), ([], []))] e a
+    g[35m:f32[1,10][39m = reshape[dimensions=None new_sizes=(1, 10) sharding=None] b
+    h[35m:f32[3,10][39m = add f g
+    i[35m:f32[3,2][39m = dot_general[dimension_numbers=(([1], [0]), ([], []))] h c
+    j[35m:f32[1,2][39m = reshape[dimensions=None new_sizes=(1, 2) sharding=None] d
+    k[35m:f32[3,2][39m = add i j
+    l[35m:f32[3,2][39m = custom_jvp_call[
+      name=relu
+      call_jaxpr={ [34;1mlambda [39;22m; m[35m:f32[3,2][39m. [34;1mlet
+          [39;22mn[35m:f32[3,2][39m = jit[
+            name=relu
+            jaxpr={ [34;1mlambda [39;22m; m[35m:f32[3,2][39m. [34;1mlet
+                [39;22mn[35m:f32[3,2][39m = max m 0.0:f32[]
+              [34;1min [39;22m(n,) }
+          ] m
+        [34;1min [39;22m(n,) }
+      jvp=jvp
+      symbolic_zeros=False
+    ] k
+  [34;1min [39;22m(l,) }

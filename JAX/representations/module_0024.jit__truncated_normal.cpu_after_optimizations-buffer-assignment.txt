@@ -1,0 +1,76 @@
+BufferAssignment:
+allocation 0: size 80, output shape is |f32[10,2]|, maybe-live-out:
+ value: <296 copy.11 @0> (size=80,offset=0): u32[10,2]{1,0}
+ value: <313 wrapped_compare @0> (size=1,offset=0): pred[]
+ value: <331 maximum_minimum_fusion @0> (size=80,offset=0): f32[10,2]{1,0}
+allocation 1: size 4, constant:
+ value: <292 constant.42 @0> (size=4,offset=0): s32[]
+allocation 2: size 16, constant:
+ value: <326 constant.10 @0> (size=16,offset=0): u32[4]{0}
+allocation 3: size 16, constant:
+ value: <328 constant.11 @0> (size=16,offset=0): u32[4]{0}
+allocation 4: size 8, parameter 0, shape |u32[2]| at ShapeIndex {}:
+ value: <320 key.1 @0> (size=8,offset=0): u32[2]{0}
+allocation 5: size 4, parameter 2, shape |s32[]| at ShapeIndex {}:
+ value: <314 upper.1 @0> (size=4,offset=0): s32[]
+allocation 6: size 4, parameter 1, shape |s32[]| at ShapeIndex {}:
+ value: <316 lower.1 @0> (size=4,offset=0): s32[]
+allocation 7: size 4, constant:
+ value: <318 constant.62 @0> (size=4,offset=0): s32[]
+allocation 8: size 4, constant:
+ value: <312 constant.41 @0> (size=4,offset=0): s32[]
+allocation 9: size 1284, preallocated-temp:
+ value: <291 copy.9 @0> (size=4,offset=1088): s32[]
+ value: <293 wrapped_add @0> (size=4,offset=1152): s32[]
+ value: <294 copy.12 @0> (size=4,offset=1216): u32[]
+ value: <295 copy.15 @0> (size=16,offset=448): u32[4]{0}
+ value: <297 copy.10 @0> (size=80,offset=320): u32[10,2]{1,0}
+ value: <298 broadcast_add_fusion.1 @0> (size=80,offset=64): u32[10,2]{1,0}
+ value: <299 copy.13 @0> (size=4,offset=832): u32[]
+ value: <300 broadcast_add_fusion @0> (size=80,offset=192): u32[10,2]{1,0}
+ value: <301 copy.20 @0> (size=4,offset=896): u32[]
+ value: <302 copy.14 @0> (size=4,offset=1280): u32[]
+ value: <303 copy.21 @0> (size=4,offset=960): u32[]
+ value: <304 copy.22 @0> (size=4,offset=1024): u32[]
+ value: <305 copy.16 @0> (size=16,offset=512): u32[4]{0}
+ value: <306 copy.23 @0> (size=16,offset=576): u32[4]{0}
+ value: <307 copy.24 @0> (size=16,offset=640): u32[4]{0}
+ value: <308 tuple.17{} @0> (size=64,offset=0): (s32[], u32[10,2]{1,0}, u32[10,2]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0})
+ value: <315 multiply_erf_fusion @0> (size=4,offset=704): f32[]
+ value: <317 multiply_erf_fusion.1 @0> (size=4,offset=768): f32[]
+ value: <319 copy.25 @0> (size=4,offset=1152): s32[]
+ value: <321 broadcast_add_fusion.3 @0> (size=80,offset=64): u32[10,2]{1,0}
+ value: <322 broadcast_add_fusion.2 @0> (size=80,offset=192): u32[10,2]{1,0}
+ value: <323 slice_bitcast_fusion @0> (size=4,offset=896): u32[]
+ value: <324 xor_xor_fusion @0> (size=4,offset=960): u32[]
+ value: <325 slice_bitcast_fusion.1 @0> (size=4,offset=1024): u32[]
+ value: <327 copy.26 @0> (size=16,offset=576): u32[4]{0}
+ value: <329 copy.27 @0> (size=16,offset=640): u32[4]{0}
+ value: <330 tuple.15{} @0> (size=64,offset=0): (s32[], u32[10,2]{1,0}, u32[10,2]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0})
+ value: <332 arg_tuple.5{} (phi) @0> (size=64,offset=0): (s32[], u32[10,2]{1,0}, u32[10,2]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0})
+ value: <333 arg_tuple.6{} (phi) @0> (size=64,offset=0): (s32[], u32[10,2]{1,0}, u32[10,2]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0})
+ value: <334 arg_tuple.5{0} (phi) @0> (size=4,offset=1152): s32[]
+ value: <335 arg_tuple.5{1} (phi) @0> (size=80,offset=64): u32[10,2]{1,0}
+ value: <336 arg_tuple.5{2} (phi) @0> (size=80,offset=192): u32[10,2]{1,0}
+ value: <337 arg_tuple.5{3} (phi) @0> (size=4,offset=896): u32[]
+ value: <338 arg_tuple.5{4} (phi) @0> (size=4,offset=960): u32[]
+ value: <339 arg_tuple.5{5} (phi) @0> (size=4,offset=1024): u32[]
+ value: <340 arg_tuple.5{6} (phi) @0> (size=16,offset=576): u32[4]{0}
+ value: <341 arg_tuple.5{7} (phi) @0> (size=16,offset=640): u32[4]{0}
+ value: <342 arg_tuple.6{0} (phi) @0> (size=4,offset=1152): s32[]
+ value: <343 arg_tuple.6{1} (phi) @0> (size=80,offset=64): u32[10,2]{1,0}
+ value: <344 arg_tuple.6{2} (phi) @0> (size=80,offset=192): u32[10,2]{1,0}
+ value: <345 arg_tuple.6{3} (phi) @0> (size=4,offset=896): u32[]
+ value: <346 arg_tuple.6{4} (phi) @0> (size=4,offset=960): u32[]
+ value: <347 arg_tuple.6{5} (phi) @0> (size=4,offset=1024): u32[]
+ value: <348 arg_tuple.6{6} (phi) @0> (size=16,offset=576): u32[4]{0}
+ value: <349 arg_tuple.6{7} (phi) @0> (size=16,offset=640): u32[4]{0}
+ value: <350 while.9{} (phi) @0> (size=64,offset=0): (s32[], u32[10,2]{1,0}, u32[10,2]{1,0}, u32[], u32[], /*index=5*/u32[], u32[4]{0}, u32[4]{0})
+ value: <351 while.9{0} (phi) @0> (size=4,offset=1152): s32[]
+ value: <352 while.9{1} (phi) @0> (size=80,offset=64): u32[10,2]{1,0}
+ value: <353 while.9{2} (phi) @0> (size=80,offset=192): u32[10,2]{1,0}
+ value: <354 while.9{3} (phi) @0> (size=4,offset=896): u32[]
+ value: <355 while.9{4} (phi) @0> (size=4,offset=960): u32[]
+ value: <356 while.9{5} (phi) @0> (size=4,offset=1024): u32[]
+ value: <357 while.9{6} (phi) @0> (size=16,offset=576): u32[4]{0}
+ value: <358 while.9{7} (phi) @0> (size=16,offset=640): u32[4]{0}

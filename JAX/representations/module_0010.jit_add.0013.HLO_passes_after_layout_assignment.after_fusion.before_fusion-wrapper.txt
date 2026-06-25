@@ -1,0 +1,56 @@
+HloModule jit_add, entry_computation_layout={(u32[], s32[])->u32[]}, allow_spmd_sharding_propagation_to_parameters={true,true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/model.py"
+2 "/Users/chaitanya/.venv-py11/lib/python3.11/site-packages/flax/nnx/pytreelib.py"
+3 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/src/MyNeuralNet.py"
+4 "/Users/chaitanya/.venv-py11/lib/python3.11/site-packages/flax/nnx/nn/linear.py"
+5 "/Users/chaitanya/.venv-py11/lib/python3.11/site-packages/flax/nnx/rnglib.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "PytreeMeta.__call__"
+4 "_graph_node_meta_call"
+5 "PytreeMeta._pytree_meta_construct"
+6 "MyNeuralNet.__init__"
+7 "Linear.__init__"
+8 "RngStream.__call__"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=70 end_line=70 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=20 end_line=20 column=12 end_column=114}
+3 {file_name_id=2 function_name_id=3 line=420 end_line=420 column=13 end_column=56}
+4 {file_name_id=2 function_name_id=4 line=431 end_line=431 column=2 end_column=51}
+5 {file_name_id=2 function_name_id=5 line=423 end_line=423 column=4 end_column=34}
+6 {file_name_id=3 function_name_id=6 line=9 end_line=9 column=22 end_column=68}
+7 {file_name_id=4 function_name_id=7 line=375 end_line=375 column=17 end_column=30}
+8 {file_name_id=5 function_name_id=8 line=123 end_line=123 column=4 end_column=24}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+5 {file_location_id=5 parent_frame_id=5}
+6 {file_location_id=6 parent_frame_id=6}
+7 {file_location_id=3 parent_frame_id=7}
+8 {file_location_id=4 parent_frame_id=8}
+9 {file_location_id=5 parent_frame_id=9}
+10 {file_location_id=7 parent_frame_id=10}
+11 {file_location_id=8 parent_frame_id=11}
+
+
+%fused_computation (param_0: u32[], param_1.1: s32[]) -> u32[] {
+  %param_0 = u32[] parameter(0)
+  %param_1.1 = s32[] parameter(1)
+  %convert_element_type.0 = u32[] convert(%param_1.1), metadata={op_name="jit(add)/convert_element_type" stack_frame_id=11}
+  ROOT %add.0 = u32[] add(%param_0, %convert_element_type.0), metadata={op_name="jit(add)/add" stack_frame_id=11}
+}
+
+ENTRY %main.1 (x.1: u32[], y.1: s32[]) -> u32[] {
+  %x.1 = u32[] parameter(0), metadata={op_name="x"}
+  %y.1 = s32[] parameter(1), metadata={op_name="y"}
+  ROOT %convert_add_fusion = u32[] fusion(%x.1, %y.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(add)/add" stack_frame_id=11}
+}
+

@@ -1,0 +1,22 @@
+
+Total bytes used: 404 (404B)
+
+Used values:
+<4 x.1 @0>
+ positions:
+  x.1
+ uses:
+  broadcast_multiply_fusion, operand 0
+ from instruction: %x.1 = f32[5,10]{1,0} parameter(0), metadata={op_name="x"}
+<5 y.1 @0>
+ positions:
+  y.1
+ uses:
+  broadcast_multiply_fusion, operand 1
+ from instruction: %y.1 = f32[] parameter(1), metadata={op_name="y"}
+<6 broadcast_multiply_fusion @0>
+ positions:
+  broadcast_multiply_fusion
+ uses:
+  (none)
+ from instruction: %broadcast_multiply_fusion = f32[5,10]{1,0} fusion(%x.1, %y.1), kind=kLoop, calls=%fused_computation, metadata={op_name="jit(multiply)/mul" stack_frame_id=10}

@@ -1,0 +1,40 @@
+
+Total bytes used: 484 (484B)
+
+Used values:
+<10 x.1 @0>
+ positions:
+  x.1
+ uses:
+  ynn_fusion.1, operand 0
+ from instruction: %x.1 = f32[3,5]{1,0} parameter(0), metadata={op_name="x"}
+<11 constant.4 @0>
+ positions:
+  constant.4
+ uses:
+  ynn_fusion.1, operand 1
+ from instruction: %constant.4 = f32[5,10]{1,0} constant({...})
+<12 ynn_fusion.1 @0>
+ positions:
+  ynn_fusion.1
+ uses:
+  ynn_fusion, operand 0
+ from instruction: %ynn_fusion.1 = f32[3,10]{1,0} fusion(%x.1, %constant.4), kind=kCustom, calls=%fused_computation.1, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=4}, backend_config={"outer_dimension_partitions":[],"fusion_config":{"kind":"__ynn_fusion"}}
+<13 constant.5 @0>
+ positions:
+  constant.5
+ uses:
+  ynn_fusion, operand 1
+ from instruction: %constant.5 = f32[10,2]{1,0} constant({...})
+<14 ynn_fusion @0>
+ positions:
+  ynn_fusion
+ uses:
+  broadcast_maximum_fusion, operand 0
+ from instruction: %ynn_fusion = f32[3,2]{1,0} fusion(%ynn_fusion.1, %constant.5), kind=kCustom, calls=%fused_computation, metadata={op_name="jit(<unnamed function>)/dot_general" stack_frame_id=6}, backend_config={"outer_dimension_partitions":[],"fusion_config":{"kind":"__ynn_fusion"}}
+<15 broadcast_maximum_fusion @0>
+ positions:
+  broadcast_maximum_fusion
+ uses:
+  (none)
+ from instruction: %broadcast_maximum_fusion = f32[3,2]{1,0} fusion(%ynn_fusion), kind=kLoop, calls=%fused_computation.2, metadata={op_name="jit(<unnamed function>)/jit(relu)/max" stack_frame_id=7}

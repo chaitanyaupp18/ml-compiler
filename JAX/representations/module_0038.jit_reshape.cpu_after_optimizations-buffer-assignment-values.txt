@@ -1,0 +1,18 @@
+
+Total bytes used: 16 (16B)
+
+Used values:
+<0 args_0_.1 @0>
+ positions:
+  args_0_.1
+  bitcast
+ uses:
+  bitcast, operand 0
+  copy, operand 0
+ from instruction: %args_0_.1 = f32[2]{0} parameter(0), metadata={op_name="args[0]"}
+<1 copy @0>
+ positions:
+  copy
+ uses:
+  (none)
+ from instruction: %copy = f32[1,2]{1,0} copy(%bitcast)

@@ -1,0 +1,1 @@
+{'bytes accessed': 652.0, 'utilization0{}': 3.0, 'flops': 426.0, 'bytes accessed0{}': 204.0, 'bytes accessedout{}': 168.0, 'bytes accessed1{}': 304.0, 'utilization1{}': 3.0}

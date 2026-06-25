@@ -1,0 +1,18 @@
+HloModule jit__unnamed_function, entry_computation_layout={(f32[3,5]{1,0})->f32[3,2]{1,0}}
+
+relu.1 {
+  Arg_0.1 = f32[3,2]{1,0} parameter(0)
+  constant.3 = f32[] constant(0)
+  broadcast.1 = f32[3,2]{1,0} broadcast(constant.3), dimensions={}
+  ROOT max.1 = f32[3,2]{1,0} maximum(Arg_0.1, broadcast.1)
+}
+
+ENTRY main.2 {
+  x.1 = f32[3,5]{1,0} parameter(0)
+  constant.4 = f32[5,10]{1,0} constant({...})
+  dot_general.2 = f32[3,10]{1,0} dot(x.1, constant.4), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  constant.5 = f32[10,2]{1,0} constant({...})
+  dot_general.3 = f32[3,2]{1,0} dot(dot_general.2, constant.5), lhs_contracting_dims={1}, rhs_contracting_dims={0}
+  ROOT jit_relu_.1 = f32[3,2]{1,0} call(dot_general.3), to_apply=relu.1
+}
+

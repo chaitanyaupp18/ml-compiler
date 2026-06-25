@@ -1,0 +1,31 @@
+HloModule jit_reshape, entry_computation_layout={(f32[2]{0})->f32[1,2]{1,0}}, allow_spmd_sharding_propagation_to_parameters={true}, allow_spmd_sharding_propagation_to_output={true}
+
+FileNames
+1 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/model.py"
+2 "/Users/chaitanya/Downloads/MLIR/end2end/ml-compiler/JAX/src/MyNeuralNet.py"
+3 "/Users/chaitanya/.venv-py11/lib/python3.11/site-packages/flax/nnx/nn/linear.py"
+
+FunctionNames
+1 "<module>"
+2 "main"
+3 "MyNeuralNet.__call__"
+4 "Linear.__call__"
+
+FileLocations
+1 {file_name_id=1 function_name_id=1 line=70 end_line=70 column=4 end_column=10}
+2 {file_name_id=1 function_name_id=2 line=23 end_line=23 column=13 end_column=31}
+3 {file_name_id=2 function_name_id=3 line=14 end_line=14 column=24 end_column=38}
+4 {file_name_id=3 function_name_id=4 line=431 end_line=431 column=11 end_column=57}
+
+StackFrames
+1 {file_location_id=1 parent_frame_id=1}
+2 {file_location_id=2 parent_frame_id=2}
+3 {file_location_id=3 parent_frame_id=3}
+4 {file_location_id=4 parent_frame_id=4}
+
+
+ENTRY %main.1 (args_0_.1: f32[2]) -> f32[1,2] {
+  %args_0_.1 = f32[2]{0} parameter(0), metadata={op_name="args[0]"}
+  ROOT %bitcast = f32[1,2]{1,0} bitcast(%args_0_.1), metadata={op_name="args[0]"}
+}
+
