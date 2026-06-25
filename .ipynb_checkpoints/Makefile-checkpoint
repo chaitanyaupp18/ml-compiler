@@ -1,0 +1,48 @@
+PWD:=$(shell pwd)
+
+MLIR:=/Users/chaitanya/Downloads/MLIR/end2end/torch-mlir/externals/llvm-project/build/bin
+
+MLIR_OPT:=${MLIR}/mlir-opt
+MLIR_TRANSLATE:=${MLIR}/mlir-translate
+LLC:=${MLIR}/llc
+CLANG:=/usr/bin/clang
+MLIR_LINALG:=${PWD}/representations/mlir_linalg-on-tensor.mlir
+
+MLIR_OUT_DIR=${PWD}/mlir_output
+TARGET:=${PWD}/model/myNeuralNet
+
+.PHONY: all
+
+all: ${TARGET}
+
+init-dirs:
+	@mkdir -p ${MLIR_OUT_DIR}
+	@mkdir -p ${PWD}/model
+
+${MLIR_OUT_DIR}/mlir-linalg-to-buffers.mlir: ${MLIR_LINALG} | init-dirs
+    @echo "=== Step 1: Converting from Linalg Tensor to Buffer==="
+    ${MLIR_OPT} --one-shot-bufferize="allow-return-allocs" ${MLIR_LINALG} -o $@
+
+${MLIR_OUT_DIR}/mlir-buffer-to-struct-control-flow.mlir: ${MLIR_OUT_DIR}/mlir-linalg-to-buffers.mlir
+    @echo "=== Step 2: Converting from One shot Buffer to Structured Control Flow ==="
+    ${MLIR_OPT} --convert-linalg-to-loops $< -o $@
+
+${MLIR_OUT_DIR}/mlir-structured-control-flow-to-branch-control-flow.mlir: ${MLIR_OUT_DIR}/mlir-buffer-to-struct-control-flow.mlir
+    @echo "=== Step 3: Converting from Structured Control Flow to Branching Control Flow ==="
+    ${MLIR_OPT} --convert-scf-to-cf $< -o $@
+
+${MLIR_OUT_DIR}/mlir-cf-to-llvm-dialect.mlir: ${MLIR_OUT_DIR}/mlir-structured-control-flow-to-branch-control-flow.mlir
+    @echo "=== Step 4: Converting from Branching Control Flow to LLVM DIALECT ==="
+    ${MLIR_OPT} --convert-func-to-llvm --convert-cf-to-llvm --convert-arith-to-llvm --finalize-memref-to-llvm --reconcile-unrealized-casts $< -o $@
+
+${MLIR_OUT_DIR}/mlir_llvm.ll: ${MLIR_OUT_DIR}/mlir-cf-to-llvm-dialect.mlir
+    @echo "=== Step 5: Converting from LLVM DIALECT to LLVM IR==="
+    ${MLIR_TRANSLATE} --mlir-to-llvmir $< -o $@
+
+${MLIR_OUT_DIR}/mlir_llvm.o: ${MLIR_OUT_DIR}/mlir_llvm.ll
+    @echo "=== Step 6: Converting from LLVM IR to LLVM ObjectFile==="
+    ${LLC} -O3 --filetype=obj $< -o $@
+
+${TARGET}: ${MLIR_OUT_DIR}/mlir_llvm.o
+    @echo "=== [Step 8] Linking Object File using Clang ==="
+	${CLANG} $< -o $@
